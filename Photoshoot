@@ -1,0 +1,64 @@
+import java.io.*;
+import java.util.*;
+
+public class Photoshoot {
+
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(new FileInputStream("photo.in"));
+        PrintWriter out = new PrintWriter("photo.out");
+
+        int lengthOfArray = Integer.parseInt(sc.nextLine())-1;
+        int[] permutationsOfA = new int[lengthOfArray+1];
+        int[] testCase = new int[lengthOfArray];
+        StringTokenizer lol =  new StringTokenizer(sc.nextLine());
+        int lmao = 0;
+        //creates an array with all the elements of b
+        while(lol.hasMoreTokens()){
+            testCase[lmao]= Integer.parseInt(lol.nextToken());
+            lmao++;
+        }
+        boolean check2 = false;
+        // this tests out all possible values of a_1
+        for (int i = 0; i<=testCase[0]; i++){
+            //this stops the program when a solution is found
+            permutationsOfA[0]=i;
+            boolean check3= false;
+            boolean check1 = false;
+            // this sets the values for every element in the A set.
+            for (int x =1; x<=lengthOfArray; x++){
+                permutationsOfA[x]=testCase[x-1]-permutationsOfA[x-1];
+
+            }
+            // This checks if every number is positive
+            for (int xyz =0; xyz<lengthOfArray+1; xyz++){
+                if (permutationsOfA[xyz]<=0){
+                    check1=true;
+                }
+            }
+            //this checks if there are repeating elements
+            HashSet<Integer> mySet = new HashSet<Integer>();
+            for (int y= 0 ; y<lengthOfArray+1; y++){
+                mySet.add(permutationsOfA[y]);
+            }
+            if (mySet.size()==permutationsOfA.length){
+                check3=true;
+            }
+            //If all the checks are met then it prints out the array
+            if (!check1&&check3){
+                for (int abc =0; abc<lengthOfArray; abc++){
+                    out.print(permutationsOfA[abc]+" ");
+
+                }
+                out.print(permutationsOfA[lengthOfArray]);
+                check2 = true;
+                break;
+
+            }
+
+        }
+        out.close();
+
+
+
+    }
+}
