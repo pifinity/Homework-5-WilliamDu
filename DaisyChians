@@ -1,0 +1,41 @@
+import java.io.*;
+import java.util.*;
+
+class DaisyChains {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        int N = Integer.parseInt(bf.readLine());
+
+        double[] flowers = new double[N];
+
+        StringTokenizer st = new StringTokenizer(bf.readLine());
+
+        for (int i=0;i<N; i++){
+            flowers[i] = Integer.parseInt(st.nextToken());
+
+        }
+
+        int ans = 0;
+
+        for (int l = 0; l<N; l++){
+            for (int i=l; i<N; i++){
+                double sum = 0;
+                for (int x = l; x<=i; x++){
+                    sum+=flowers[x];
+                }
+
+                double avg = sum/(i-l+1);
+                boolean temp = false;
+                for (int x=l; x<=i; x++){
+                    if (flowers[x]==avg){
+                        temp =true;
+                    }
+                }
+
+                if (temp)ans++;
+            }
+        }
+        System.out.println(ans);
+    }
+}
